@@ -12,7 +12,7 @@ const {
 } = STATUS_CODES;
 
 describe("UTILS - responseContructor()", () => {
-  test("main - should return success response without data", () => {
+  test("should return success response without data", () => {
     const successResponse: ReturnType = {
       success: true,
       code: OK
@@ -22,7 +22,7 @@ describe("UTILS - responseContructor()", () => {
     expect(response).toEqual(successResponse);
   });
 
-  test("main - should return success response with data", () => {
+  test("should return success response with data", () => {
     const successResponse: ReturnType = {
       success: true,
       code: OK,
@@ -33,7 +33,7 @@ describe("UTILS - responseContructor()", () => {
     expect(response).toEqual(successResponse);
   });
 
-  test("main = should return success response with data after creating a new data", () => {
+  test("should return success response with data after creating a new data", () => {
     const successResponse: ReturnType = {
       success: true,
       code: CREATED,
@@ -52,7 +52,7 @@ describe("UTILS - responseContructor()", () => {
   });
 
   // ERROR - 400 BAD REQUEST
-  test("main - should return error response bad request", () => {
+  test("should return error response bad request", () => {
     const errorResponse: ReturnType = {
       success: false,
       code: BAD_REQUEST,
@@ -63,7 +63,7 @@ describe("UTILS - responseContructor()", () => {
     expect(response).toEqual(errorResponse);
   });
 
-  test("main - should return error response bad request with error object", () => {
+  test("should return error response bad request with error object", () => {
     const errorResponse: ReturnType = {
       success: false,
       code: BAD_REQUEST,
@@ -76,7 +76,7 @@ describe("UTILS - responseContructor()", () => {
   });
 
   // ERROR - 403 UNAUTHORIZED
-  test("main - should return error response unauthorized", () => {
+  test("should return error response unauthorized", () => {
     const errorResponse: ReturnType = {
       success: false,
       code: UNAUTHORIZED,
@@ -87,7 +87,7 @@ describe("UTILS - responseContructor()", () => {
     expect(response).toEqual(errorResponse);
   });
 
-  test("main - should return error response unauthorized with error object", () => {
+  test("should return error response unauthorized with error object", () => {
     const errorResponse: ReturnType = {
       success: false,
       code: UNAUTHORIZED,
@@ -100,7 +100,7 @@ describe("UTILS - responseContructor()", () => {
   });
 
   // ERROR - 404 NOT FOUND
-  test("main - should return error response not found", () => {
+  test("should return error response not found", () => {
     const errorResponse: ReturnType = {
       success: false,
       code: NOT_FOUND,
@@ -111,7 +111,7 @@ describe("UTILS - responseContructor()", () => {
     expect(response).toEqual(errorResponse);
   });
 
-  test("main - should return error response not found with error object", () => {
+  test("should return error response not found with error object", () => {
     const errorResponse: ReturnType = {
       success: false,
       code: NOT_FOUND,
@@ -124,7 +124,7 @@ describe("UTILS - responseContructor()", () => {
   });
 
   // ERROR - 500 INTERNAL SERVER ERROR
-  test("main - should return error response internal server error", () => {
+  test("should return error response internal server error", () => {
     const errorResponse: ReturnType = {
       success: false,
       code: INTERNAL_SERVER,
@@ -135,7 +135,7 @@ describe("UTILS - responseContructor()", () => {
     expect(response).toEqual(errorResponse);
   });
 
-  test("main - should return error response internal server error with error object", () => {
+  test("should return error response internal server error with error object", () => {
     const errorResponse: ReturnType = {
       success: false,
       code: INTERNAL_SERVER,

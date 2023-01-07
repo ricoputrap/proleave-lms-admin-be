@@ -1,4 +1,7 @@
+import { STATUS_CODES } from "../../constants/api.enum";
 import { ReturnType } from "../../types/api.types";
+
+const { OK } = STATUS_CODES;
 
 export const responseConstructor = (
   code: number,
@@ -22,3 +25,9 @@ export const responseConstructor = (
   if (!!data) result.data = data;
   return result;
 }
+
+export const getSuccessResponse = (data?: any): ReturnType => responseConstructor(
+  OK,
+  "",
+  data
+)
