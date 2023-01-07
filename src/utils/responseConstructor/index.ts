@@ -1,7 +1,7 @@
 import { STATUS_CODES } from "../../constants/api.enum";
 import { ReturnType } from "../../types/api.types";
 
-const { OK } = STATUS_CODES;
+const { OK, CREATED } = STATUS_CODES;
 
 export const responseConstructor = (
   code: number,
@@ -31,3 +31,29 @@ export const getSuccessResponse = (data?: any): ReturnType => responseConstructo
   "",
   data
 )
+
+export const getCreatedResponse = (data?: any): ReturnType => responseConstructor(
+  CREATED,
+  "",
+  data
+)
+
+export const getBadRequestResponse = (message?: any): ReturnType => ({
+  success: false,
+  code: 500
+});
+
+export const getUnauthorizedResponse = (message: string): ReturnType => ({
+  success: false,
+  code: 500
+});
+
+export const getNotFoundResponse = (message: string): ReturnType => ({
+  success: false,
+  code: 500
+});
+
+export const getInternalServerErrorResponse = (message: string): ReturnType => ({
+  success: false,
+  code: 500
+});
