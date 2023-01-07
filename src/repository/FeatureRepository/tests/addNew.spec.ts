@@ -24,7 +24,7 @@ describe("addNewFeature", () => {
     expect(feature).toEqual(newFeature);
   });
 
-  test("should handle error when adding a new feature", async () => {
+  test("should throw error message when adding a new feature", async () => {
     const error = new Error("Error adding a new feature");
     jest.spyOn(FeatureModel, "create").mockImplementation(() => {
       return new Promise((resolve, reject) => {

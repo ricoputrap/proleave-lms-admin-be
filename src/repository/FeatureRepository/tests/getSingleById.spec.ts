@@ -22,7 +22,7 @@ describe("getSingleFeatureByID", () => {
     expect(result).toEqual(feature);
   });
 
-  test("should throw error message", async () => {
+  test("should throw error message when getting a feature by ID", async () => {
     const error = new Error("Error getting a feature by ID");
     jest.spyOn(FeatureModel, "findById").mockRejectedValue(error);
 

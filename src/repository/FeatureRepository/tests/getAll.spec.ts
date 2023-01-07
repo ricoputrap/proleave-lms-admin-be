@@ -22,7 +22,7 @@ describe("getAllFeatures", () => {
     expect(await repository.getAllFeatures()).toEqual(result);
   });
 
-  test("should throw error message", async () => {
+  test("should throw error message when getting all features", async () => {
     const error = new Error("Error getting all features");
     jest.spyOn(FeatureModel, "find").mockRejectedValue(error);
 

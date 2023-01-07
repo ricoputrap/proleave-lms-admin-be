@@ -22,7 +22,7 @@ describe("editFeature", () => {
     expect(feature).toEqual(editedFeature);
   });
 
-  test("should handle error when editing a feature", async () => {
+  test("should throw error message when editing a feature", async () => {
     const error = new Error("Error editing a feature");
     jest.spyOn(FeatureModel, "findOneAndUpdate").mockRejectedValue(error);
 

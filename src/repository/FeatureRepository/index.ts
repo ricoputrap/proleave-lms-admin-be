@@ -1,4 +1,5 @@
 import FeatureModel from "../../models/FeatureModel";
+import { DeleteReturnType } from "../../types/api.types";
 import { IFeature } from "../../types/models.types";
 import crypto from "node:crypto";
 
@@ -54,9 +55,17 @@ class FeatureRepository {
     }
   }
 
-  // deleteFeature = async (_id: number): Promise<DeleteReturnType> => {
-
-  // }
+  deleteFeature = async (_id: string): Promise<DeleteReturnType> => {
+    try {
+      const filter = { _id };
+      const res: DeleteReturnType = await FeatureModel.deleteOne(filter);
+      return res;
+    }
+    catch (error: any) {
+      const message = (error as Error).message;
+      throw message;
+    }
+  }
 }
 
 export default FeatureRepository;
