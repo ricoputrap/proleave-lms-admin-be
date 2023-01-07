@@ -38,9 +38,21 @@ class FeatureRepository {
     }
   }
 
-  // editFeature = async (_id: number, name: string): Promise<IFeature | null | undefined> => {
+  editFeature = async (_id: string, name: string): Promise<IFeature | null | undefined> => {
+    try {
+      const filter = { _id };
+      const value = { name };
 
-  // }
+      const updatedFeature: IFeature | null | undefined = await FeatureModel.findOneAndUpdate(filter, value);
+      if (!!updatedFeature) updatedFeature.name = name;
+      
+      return updatedFeature;
+    }
+    catch (error: any) {
+      const message = (error as Error).message;
+      throw message;
+    }
+  }
 
   // deleteFeature = async (_id: number): Promise<DeleteReturnType> => {
 
