@@ -1,4 +1,4 @@
 export interface IFeature {
-  _id: number;
+  _id: string;
   name: string;
 }

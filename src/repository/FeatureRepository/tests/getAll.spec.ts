@@ -11,9 +11,9 @@ describe("getAllFeatures", () => {
 
   test("should return an array of features", async () => {
     const result: IFeature[] = [
-      { _id: 1, name: "Feature 1" },
-      { _id: 2, name: "Feature 2" },
-      { _id: 3, name: "Feature 3" },
+      { _id: "1", name: "Feature 1" },
+      { _id: "2", name: "Feature 2" },
+      { _id: "3", name: "Feature 3" },
     ];
 
     // mock implementation of FeatureModel.find()

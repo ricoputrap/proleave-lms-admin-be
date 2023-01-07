@@ -11,7 +11,7 @@ describe("getSingleFeatureByID", () => {
 
   test("should return a feature", async () => {
     const feature: IFeature = {
-      _id: 0,
+      _id: "0",
       name: "Feature 1"
     }
 
