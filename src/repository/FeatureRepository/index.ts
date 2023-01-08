@@ -16,9 +16,20 @@ class FeatureRepository {
     }
   }
 
-  getSingleFeatureByID = async (id: number): Promise<IFeature | null> => {
+  getSingleFeatureByID = async (id: string): Promise<IFeature | null> => {
     try {
       const feature: IFeature | null = await FeatureModel.findById(id);
+      return feature;
+    }
+    catch (error: any) {
+      const message = (error as Error).message;
+      throw message;
+    }
+  }
+
+  getSingleFeatureByName = async (name: string): Promise<IFeature | null> => {
+    try {
+      const feature: IFeature | null = await FeatureModel.findOne({ name });
       return feature;
     }
     catch (error: any) {
