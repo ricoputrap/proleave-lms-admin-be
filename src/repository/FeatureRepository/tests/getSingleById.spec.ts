@@ -17,7 +17,7 @@ describe("getSingleFeatureByID", () => {
 
     jest.spyOn(FeatureModel, "findById").mockResolvedValue(feature);
     
-    const id: number = 0;
+    const id: string = "0";
     const result: IFeature | null = await repository.getSingleFeatureByID(id);
     expect(result).toEqual(feature);
   });
@@ -27,7 +27,7 @@ describe("getSingleFeatureByID", () => {
     jest.spyOn(FeatureModel, "findById").mockRejectedValue(error);
 
     try {
-      const featureID: number = 0;
+      const featureID: string = "0";
       await repository.getSingleFeatureByID(featureID);
       fail(error);
     }
