@@ -38,6 +38,17 @@ class FeatureRepository {
     }
   }
 
+  getSingleFeature = async (filter: any): Promise<IFeature | null> => {
+    try {
+      const feature: IFeature | null = await FeatureModel.findOne(filter);
+      return feature;
+    }
+    catch (error: any) {
+      const message = (error as Error).message;
+      throw message;
+    }
+  }
+
   addNewFeature = async (name: string): Promise<IFeature> => {
     try {
       const _id: string = crypto.randomUUID();
