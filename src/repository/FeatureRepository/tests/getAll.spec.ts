@@ -2,7 +2,7 @@ import FeatureRepository from "..";
 import FeatureModel from "../../../models/FeatureModel";
 import { IFeature } from "../../../types/models.types";
 
-describe("getAllFeatures", () => {
+describe("FeatureRepository - getAllFeatures()", () => {
   let repository: FeatureRepository;
 
   beforeAll(() => {

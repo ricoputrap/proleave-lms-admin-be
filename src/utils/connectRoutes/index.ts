@@ -4,7 +4,7 @@ import { TRoute } from "../../types/config.types";
 
 const connectRoutes = (app: Express) => {
   routes.forEach((route: TRoute) => {
-    app.use(route.path, route.controller);
+    app.use(route.path, route.router);
   })
 }
 

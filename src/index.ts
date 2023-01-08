@@ -3,7 +3,7 @@ import { startConfiguration } from "../config";
 import { PORT } from "../config/env";
 import connectRoutes from "./utils/connectRoutes";
 
-const startServer = () => {
+export const createApp = (): Express => {
   const app: Express = express();
 
   // middlewares
@@ -11,6 +11,12 @@ const startServer = () => {
 
   // connect all routes
   connectRoutes(app);
+
+  return app;
+}
+
+const startServer = () => {
+  const app: Express = createApp();
 
   // listen to connection on the configured port
   app.listen(PORT, () => {
