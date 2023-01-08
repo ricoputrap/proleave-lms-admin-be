@@ -1,7 +1,7 @@
-import FeatureService from "."
-import { STATUS_CODES } from "../../constants/api.enum";
-import { ReturnType } from "../../types/api.types";
-import { IFeature } from "../../types/models.types";
+import FeatureService from "..";
+import { STATUS_CODES } from "../../../constants/api.enum";
+import { ReturnType } from "../../../types/api.types";
+import { IFeature } from "../../../types/models.types";
 
 describe("FeatureService.getAllFeatures", () => {
   let service: FeatureService;
