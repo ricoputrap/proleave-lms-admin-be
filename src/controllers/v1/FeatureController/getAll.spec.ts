@@ -102,6 +102,6 @@ describe("FeatureController - getAllFeatures()", () => {
     // validate the response body
     expect(result.success).toBe(errorResponse.success);
     expect(result.code).toBe(errorResponse.code);
-    expect(result.data).toEqual(errorResponse.data);
+    expect(result.message).toEqual(errorResponse.message);
   });
 })

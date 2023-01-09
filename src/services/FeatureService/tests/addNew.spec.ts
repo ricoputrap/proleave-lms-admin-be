@@ -3,7 +3,7 @@ import { STATUS_CODES } from "../../../constants/api.enum";
 import { ReturnType } from "../../../types/api.types";
 import { IFeature } from "../../../types/models.types";
 
-describe("FeatureService.addNewFeature", () => {
+describe("FeatureService - addNewFeature()", () => {
   let service: FeatureService;
 
   beforeAll(() => {

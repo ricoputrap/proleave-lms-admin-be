@@ -22,8 +22,8 @@ describe("getSingleFeature", () => {
     expect(result).toEqual(feature);
   });
 
-  test("should throw error messages when getting a feature by name", async () => {
-    const error = new Error("Error getting a feature by name");
+  test("should throw error messages when getting a feature by any filter", async () => {
+    const error = new Error("Error getting a feature by any filter");
     jest.spyOn(FeatureModel, "findOne").mockRejectedValue(error);
 
     try {
