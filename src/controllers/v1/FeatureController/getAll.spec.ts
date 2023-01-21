@@ -1,12 +1,12 @@
 import { Express } from "express";
 import request from "supertest";
 import FeatureModel from "../../../models/FeatureModel";
-import { ReturnType } from "../../../types/api.types";
 import { STATUS_CODES } from "../../../constants/api.enum";
 import { createApp } from "../../..";
 import { IFeature } from "../../../types/models.types";
+import { ErrorResponse, SuccessResponse } from "../../../types/api.types";
 
-describe("FeatureController - getAllFeatures()", () => {
+describe("FeatureController - Get All Features", () => {
   let app: Express;
 
   beforeAll(() => {
@@ -19,9 +19,7 @@ describe("FeatureController - getAllFeatures()", () => {
     jest.spyOn(FeatureModel, "find").mockResolvedValue([]);
 
     // construct success response object
-    const successResponse: ReturnType = {
-      success: true,
-      code: STATUS_CODES.OK,
+    const successResponse: SuccessResponse<IFeature> = {
       data: []
     }
 
@@ -33,11 +31,9 @@ describe("FeatureController - getAllFeatures()", () => {
     expect(response.statusCode).toBe(STATUS_CODES.OK);
 
     // extract response body
-    const result: ReturnType = response.body;
+    const result: SuccessResponse<IFeature> = response.body;
 
     // validate the response body
-    expect(result.success).toBe(successResponse.success);
-    expect(result.code).toBe(successResponse.code);
     expect(result.data).toEqual(successResponse.data);
   });
 
@@ -53,9 +49,7 @@ describe("FeatureController - getAllFeatures()", () => {
     jest.spyOn(FeatureModel, "find").mockResolvedValue(features);
 
     // construct success response object
-    const successResponse: ReturnType = {
-      success: true,
-      code: STATUS_CODES.OK,
+    const successResponse: SuccessResponse<IFeature> = {
       data: features
     }
 
@@ -67,11 +61,9 @@ describe("FeatureController - getAllFeatures()", () => {
     expect(response.statusCode).toBe(STATUS_CODES.OK);
 
     // extract response body
-    const result: ReturnType = response.body;
+    const result: SuccessResponse<IFeature> = response.body;
 
     // validate the response body
-    expect(result.success).toBe(successResponse.success);
-    expect(result.code).toBe(successResponse.code);
     expect(result.data).toEqual(successResponse.data);
   });
 
@@ -83,9 +75,9 @@ describe("FeatureController - getAllFeatures()", () => {
     jest.spyOn(FeatureModel, "find").mockRejectedValue(error);
 
     // construct success response object
-    const errorResponse: ReturnType = {
-      success: false,
+    const errorResponse: ErrorResponse = {
       code: STATUS_CODES.INTERNAL_SERVER,
+      name: "internal_server",
       message: error.message
     }
 
@@ -97,11 +89,11 @@ describe("FeatureController - getAllFeatures()", () => {
     expect(response.statusCode).toBe(STATUS_CODES.INTERNAL_SERVER);
 
     // extract response body
-    const result: ReturnType = response.body;
+    const result: ErrorResponse = response.body;
 
     // validate the response body
-    expect(result.success).toBe(errorResponse.success);
     expect(result.code).toBe(errorResponse.code);
+    expect(result.name).toBe(errorResponse.name);
     expect(result.message).toEqual(errorResponse.message);
   });
 })

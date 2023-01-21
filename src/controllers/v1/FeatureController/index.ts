@@ -1,7 +1,9 @@
 import { Request, Response, Router } from "express";
-import FeatureService from "../../../services/FeatureService";
-import { ReturnType } from "../../../types/api.types";
-import { getBadRequestResponse } from "../../../utils/responseConstructor";
+import { IFeature } from "../../../domains/feature/types";
+import { ErrorResponse, SuccessResponse } from "../../../types/api.types";
+import { STATUS_CODES } from "../../../constants/api.enum";
+import { ServiceReturnType, SuccessReturnType } from "../../../core/service.types";
+import FeatureService from "../../../domains/feature/service";
 
 class FeatureController {
   private router: Router;
@@ -22,27 +24,41 @@ class FeatureController {
   }
 
   getAllFeatures = async (req: Request, res: Response) => {
-    const result: ReturnType = await this.service.getAllFeatures();
-    return res.status(result.code).json(result);
-  }
-
-  addNewFeature = async (req: Request, res: Response) => {
-    // 1. validate input - if "name" is provided in the request body
-    const { name } = req.body;
-    if (!name) {
-      const errorMessage: string = "'name' should be provided and not empty in the request body.";
-      const result: ReturnType = getBadRequestResponse(errorMessage);
-      return res.status(result.code).json(result);
+    const result: ServiceReturnType<IFeature> = await this.service.getAllFeatures();
+    
+    if (!!result.error) {
+      const error: ErrorResponse = result.error;
+      return res.status(error.code).json(error);
     }
 
-    // 2. call service method
-    const result: ReturnType = await this.service.addNewFeature(name);
-    return res.status(result.code).json(result);
+    // construct success response object
+    if (!!result.success) {
+      const successReturnValue: SuccessReturnType<IFeature> = result.success;
+      const response: SuccessResponse<IFeature> = {
+        data: successReturnValue.data
+      }
+  
+      return res.status(STATUS_CODES.OK).json(response);
+    }
   }
+
+  // addNewFeature = async (req: Request, res: Response) => {
+  //   // 1. validate input - if "name" is provided in the request body
+  //   const { name } = req.body;
+  //   if (!name) {
+  //     const errorMessage: string = "'name' should be provided and not empty in the request body.";
+  //     const result: ReturnType = getBadRequestResponse(errorMessage);
+  //     return res.status(result.code).json(result);
+  //   }
+
+  //   // 2. call service method
+  //   const result: ReturnType = await this.service.addNewFeature(name);
+  //   return res.status(result.code).json(result);
+  // }
 
   private async init() {
     this.router.get("/", await this.getAllFeatures);
-    this.router.post("/", await this.addNewFeature);
+    // this.router.post("/", await this.addNewFeature);
   }
 }
 
