@@ -2,7 +2,7 @@ import FeatureRepository from "../repository";
 import { IFeature, IFeatureNew } from "../types";
 import Service from "../../../core/Service";
 import Repository from "../../../interfaces/repository";
-import { ErrorResponse } from "../../../types/api.types";
+import { ErrorResponse, SuccessResponse } from "../../../types/api.types";
 import { STATUS_CODES } from "../../../constants/api.enum";
 import { ServiceReturnType } from "../../../core/service.types";
 
@@ -45,25 +45,47 @@ class FeatureService extends Service {
     }
   }
 
+  addNewFeature = async (name: string): Promise<ServiceReturnType<IFeature>> => {
+    try {
+      // validate duplication -> repo.getSingle()
+      const filter: any = { name };
+      const exists: Boolean = await this.checkIfExist(
+        this.repository.getSingle,
+        filter
+      );
+      if (exists) {
+        const message: string = `A featur with the same name "${name}" already exists.`;
+        const errorResponse: ErrorResponse = {
+          code: STATUS_CODES.BAD_REQUEST,
+          name: "duplicate_item",
+          message
+        }
+        return { error: errorResponse }
+      }
 
-  // addNewFeature = async (name: string): Promise<ReturnType> => {
-  //   try {
-  //     // validate duplication -> getFeatureByName
-  //     const duplicateCheckResult: ReturnType = await this._validateDuplication(name);
-  //     if (!duplicateCheckResult.success)
-  //       return duplicateCheckResult;
+      // no duplicate, call the creation method in the repo
+      const newFeatureData: IFeatureNew = { name }
+      const newFeature: IFeature = await this.repository.addNew(newFeatureData);
 
-  //     // call repo method
-  //     const newFeature: IFeature = await this.repository.addNewFeature(name);
-      
-  //     // construct & return creation success response
-  //     const result: ReturnType = getCreatedResponse(newFeature);
-  //     return result;
-  //   }
-  //   catch (error: any) {
-  //     return getInternalServerErrorResponse(error);
-  //   }
-  // }
+      // construct & return the service success response
+      const result: SuccessResponse<IFeature> = {
+        data: newFeature
+      }
+      return { success: result }
+    }
+    catch (error: any) {
+      const message: string = !!error.message ? error.message : error;
+      const errorResponse: ErrorResponse = {
+        code: STATUS_CODES.INTERNAL_SERVER,
+        name: "internal_server",
+        message
+      }
+
+      return {
+        error: errorResponse
+      }
+    }
+  }
 
   // /**
   //  * Validate Duplication
