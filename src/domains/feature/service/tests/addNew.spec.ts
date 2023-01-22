@@ -62,7 +62,7 @@ describe("FeatureService - addNewFeature()", () => {
     jest.spyOn(service.getRepository(), "getSingle").mockResolvedValue(feature);
 
     // construct the bad request error response
-    const message: string = `A featur with the same name "${updatedFeature.name}" already exists.`;
+    const message: string = `A feature with the name '${updatedFeature.name}' already exists.`;
     const errorResponse: ErrorResponse = {
       code: STATUS_CODES.BAD_REQUEST,
       name: "duplicate_item",

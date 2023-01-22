@@ -30,7 +30,9 @@ class FeatureRepository implements Repository<IFeature, IFeatureNew> {
   addNew = async (data: IFeatureNew): Promise<IFeature> => {
     try {
       const _id: string = crypto.randomUUID();
-      const feature: IFeature = await FeatureModel.create(data);
+      const newFeature = { _id, name: data.name }
+
+      const feature: IFeature = await FeatureModel.create(newFeature);
       return feature;
     }
     catch (error: any) {

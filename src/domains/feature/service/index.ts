@@ -54,7 +54,7 @@ class FeatureService extends Service {
         filter
       );
       if (exists) {
-        const message: string = `A featur with the same name "${name}" already exists.`;
+        const message: string = `A feature with the name '${name}' already exists.`;
         const errorResponse: ErrorResponse = {
           code: STATUS_CODES.BAD_REQUEST,
           name: "duplicate_item",

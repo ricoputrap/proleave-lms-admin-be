@@ -42,23 +42,39 @@ class FeatureController {
     }
   }
 
-  // addNewFeature = async (req: Request, res: Response) => {
-  //   // 1. validate input - if "name" is provided in the request body
-  //   const { name } = req.body;
-  //   if (!name) {
-  //     const errorMessage: string = "'name' should be provided and not empty in the request body.";
-  //     const result: ReturnType = getBadRequestResponse(errorMessage);
-  //     return res.status(result.code).json(result);
-  //   }
+  addNewFeature = async (req: Request, res: Response) => {
+    // 1. validate input - if "name" is provided in the request body
+    const { name } = req.body;
+    if (!name) {
+      const errorMessage: string = "'name' should be provided and not empty in the request body.";
+      const errorResponse: ErrorResponse = {
+        code: STATUS_CODES.BAD_REQUEST,
+        name: "invalid_param",
+        message: errorMessage
+      }
+      return res.status(errorResponse.code).json(errorResponse);
+    }
 
-  //   // 2. call service method
-  //   const result: ReturnType = await this.service.addNewFeature(name);
-  //   return res.status(result.code).json(result);
-  // }
+    // 2. call service method
+    const result: ServiceReturnType<IFeature> = await this.service.addNewFeature(name);
+   
+    if (!!result.error) {
+      const error: ErrorResponse = result.error;
+      return res.status(error.code).json(error);
+    }
+
+    if (!!result.success) {
+      const successReturnValue: SuccessReturnType<IFeature> = result.success;
+      const response: SuccessResponse<IFeature> = {
+        data: successReturnValue.data
+      }
+      return res.status(STATUS_CODES.CREATED).json(response);
+    }
+  }
 
   private async init() {
     this.router.get("/", await this.getAllFeatures);
-    // this.router.post("/", await this.addNewFeature);
+    this.router.post("/", await this.addNewFeature);
   }
 }
 
